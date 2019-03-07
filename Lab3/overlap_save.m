@@ -14,10 +14,10 @@ for k=1:nr
     Ma(k,:)=x1(((k-1)*lc+1):k*lc);
     if k==1
         Ma1(k,:)=[zeros(1,M-1) Ma(k,:)];
-    else 
-        Ma1(k,:)=[Ma(k-1,(lc-M+2):lc) Ma(k,:)];        
+    else
+        Ma1(k,:)=[Ma(k-1,(lc-M+2):lc) Ma(k,:)];
     end
-     Ma2(k,:)=ifft(fft(Ma1(k,:)).*fft(h1));
+    Ma2(k,:)=ifft(fft(Ma1(k,:)).*fft(h1));
 end
 Ma3=Ma2(:,M:(lc+M-1));
 y1=Ma3';
