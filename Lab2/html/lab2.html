@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>lab2</title><meta name="generator" content="MATLAB 9.5"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2019-03-04"><meta name="DC.source" content="lab2.m"><style type="text/css">
+      --><title>lab2</title><meta name="generator" content="MATLAB 9.5"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2019-03-06"><meta name="DC.source" content="lab2.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -106,58 +106,58 @@ test_lab2(h, x);
 </pre><pre class="codeoutput">Problem #1
    Your data are correct
    Your offset is correct
-     Your elapsed time is 29.9 usecs
-     which is 3.08 times Holton's elapsed time (9.706 usecs)
-     and 4.1 times Matlab's elapsed time (7.301 usecs)
+     Your elapsed time is 30.437 usecs
+     which is 3.05 times Holton's elapsed time (9.995 usecs)
+     and 3.89 times Matlab's elapsed time (7.831 usecs)
 
 Problem #2
    Your data are correct
    Your offset is correct
-     Your elapsed time is 19.214 usecs
-     which is 3.01 times Holton's elapsed time (6.394 usecs)
-     and 7.62 times Matlab's elapsed time (2.523 usecs)
+     Your elapsed time is 21.691 usecs
+     which is 3.1 times Holton's elapsed time (7.007 usecs)
+     and 8.39 times Matlab's elapsed time (2.584 usecs)
 
 Problem #3
    Your data are correct
    Your offset is correct
-     Your elapsed time is 38.181 usecs
-     which is 0.536 times Holton's elapsed time (71.256 usecs)
-     and 0.637 times Matlab's elapsed time (59.932 usecs)
+     Your elapsed time is 45.585 usecs
+     which is 0.527 times Holton's elapsed time (86.475 usecs)
+     and 0.459 times Matlab's elapsed time (99.265 usecs)
 
 Problem #4
    Your data are correct
    Your offset is correct
-     Your elapsed time is 20.104 usecs
-     which is 0.749 times Holton's elapsed time (26.847 usecs)
-     and 3.33 times Matlab's elapsed time (6.036 usecs)
+     Your elapsed time is 24.63 usecs
+     which is 0.875 times Holton's elapsed time (28.143 usecs)
+     and 3.66 times Matlab's elapsed time (6.722 usecs)
 
 Problem #5
    Your data are correct
    Your offset is correct
-     Your elapsed time is 1325.56 usecs
-     which is 1.09 times Holton's elapsed time (1219.06 usecs)
-     and 18.8 times Matlab's elapsed time (70.408 usecs)
+     Your elapsed time is 1854.75 usecs
+     which is 1.4 times Holton's elapsed time (1327.47 usecs)
+     and 18.6 times Matlab's elapsed time (99.553 usecs)
 
 Problem #6
    Your data are correct
    Your offset is correct
-     Your elapsed time is 1314.3 usecs
-     which is 1.1 times Holton's elapsed time (1197.84 usecs)
-     and 17.3 times Matlab's elapsed time (76.168 usecs)
+     Your elapsed time is 2039.65 usecs
+     which is 1.46 times Holton's elapsed time (1395.56 usecs)
+     and 22.8 times Matlab's elapsed time (89.622 usecs)
 
 Problem #7
    Your data are correct
    Your offset is correct
-     Your elapsed time is 20.053 usecs
-     which is 3.16 times Holton's elapsed time (6.349 usecs)
-     and 3.15 times Matlab's elapsed time (6.369 usecs)
+     Your elapsed time is 21.07 usecs
+     which is 3.28 times Holton's elapsed time (6.425 usecs)
+     and 3.79 times Matlab's elapsed time (5.562 usecs)
 
 Problem #8
    Your data are correct
    Your offset is correct
-     Your elapsed time is 12.595 usecs
-     which is 3.4 times Holton's elapsed time (3.705 usecs)
-     and 6.44 times Matlab's elapsed time (1.956 usecs)
+     Your elapsed time is 13.614 usecs
+     which is 3.84 times Holton's elapsed time (3.547 usecs)
+     and 7.16 times Matlab's elapsed time (1.901 usecs)
 
 </pre><h2 id="3">Real-time Convolution</h2><p>Real-time convolution #1</p><pre class="codeinput">x = [1 4 2 6 5];
 h = [4 -1 3 -5 2];
@@ -206,50 +206,50 @@ type <span class="string">conv_rt</span>
 ---------------------------------------------------
 
 classdef sequence
-	properties
-		data
-		offset
-	end
-	
-	methods
-		function s = sequence(data, offset)
-			% SEQUENCE   Sequence object
-			%            S = SEQUENCE(DATA, OFFSET) creates sequence S
-			%            using DATA and OFFSET
-			%
-			%            Kevin Baltazar Reyes  13 Feb 2019
-			s.data = data;
-			s.offset = offset;
-		end
-		
-		function display(s)
-			var = inputname(1);
-			if (isempty(var))
-				disp('ans =');
-			else
-				disp([var '=']);
-			end
-			switch length(s.data)
-				case 0
-					disp('    data: []')
-				case 1
-					disp(['    data: ', num2str(s.data)])
-				otherwise
-					disp(['    data: [' num2str(s.data) ']'])
-			end
-			disp(['  offset: ' num2str(s.offset)])
-		end
-		
-		function y = flip(x)
-			% FLIP Flip a Matlab sequence structure, x, so y = x[-n]
+    properties
+        data
+        offset
+    end
+    
+    methods
+        function s = sequence(data, offset)
+            % SEQUENCE   Sequence object
+            %            S = SEQUENCE(DATA, OFFSET) creates sequence S
+            %            using DATA and OFFSET
+            %
+            %            Kevin Baltazar Reyes  13 Feb 2019
+            s.data = data;
+            s.offset = offset;
+        end
+        
+        function display(s)
+            var = inputname(1);
+            if (isempty(var))
+                disp('ans =');
+            else
+                disp([var '=']);
+            end
+            switch length(s.data)
+                case 0
+                    disp('    data: []')
+                case 1
+                    disp(['    data: ', num2str(s.data)])
+                otherwise
+                    disp(['    data: [' num2str(s.data) ']'])
+            end
+            disp(['  offset: ' num2str(s.offset)])
+        end
+        
+        function y = flip(x)
+            % FLIP Flip a Matlab sequence structure, x, so y = x[-n]
             tempData = x.data(end:-1:1);    %start with the end of the sequence then count down 1 each time
             
             tempOffest = -(x.offset+length(x.data) - 1);
             y = sequence(tempData,tempOffest);
-		end
-		
-		function y = shift(x, n0)
-			% SHIFT Shift a Matlab sequence structure, x, by integer amount n0 so that y[n] = x[n - n0]
+        end
+        
+        function y = shift(x, n0)
+            % SHIFT Shift a Matlab sequence structure, x, by integer amount n0 so that y[n] = x[n - n0]
             
             sameDataX=x.data;  %data sequence remains the same, we are only shifting the offset
             newOffset=(x.offset+n0);   %new offset = previous offset + value you are shifting
@@ -269,10 +269,10 @@ classdef sequence
             end
             
         end
-            
-		
-		function z = plus(x, y)
-			% PLUS  Add x and y. Either x and y will both be sequence structures, or one of them may be a number.
+        
+        
+        function z = plus(x, y)
+            % PLUS  Add x and y. Either x and y will both be sequence structures, or one of them may be a number.
             
             if isa(x,'sequence') == 0     %checks if x is a constant
                 z=sequence(y.data+x,y.offset);  %if x is a constant, add constant x to every data pt in y sequence, leave offest untouched
@@ -280,12 +280,12 @@ classdef sequence
                 return;
             end
             
-            if isa(y,'sequence') == 0    %same as above but instead         
+            if isa(y,'sequence') == 0    %same as above but instead
                 z=sequence(x.data+y,x.offset);
                 z=trim(z);
                 return;
             end
-                
+            
             lx=length(x.data);  %length of data in sequence x
             ly=length(y.data);  %length of data in sequence y
             
@@ -300,29 +300,29 @@ classdef sequence
             
             z=trim(z);
             
-		end
-		
-		function z = minus(x, y)
-			% MINUS Subtract x and y. Either x and y will both be sequence structures, or one of them may be a number.
+        end
+        
+        function z = minus(x, y)
+            % MINUS Subtract x and y. Either x and y will both be sequence structures, or one of them may be a number.
             
-            if isa(x,'sequence')==0     
+            if isa(x,'sequence')==0
                 z=sequence(x-y.data,y.offset);
                 z=trim(z);
                 return;
             end
-            if isa(y,'sequence')==0            
+            if isa(y,'sequence')==0
                 z=sequence(x.data-y,x.offset);
                 z=trim(z);
                 return;
             end
-                
+            
             Lx=length(x.data);
             Ly=length(y.data);
             
-            ody=y.offset-x.offset;  
-            odx=x.offset-y.offset; 
+            ody=y.offset-x.offset;
+            odx=x.offset-y.offset;
             
-            x.data=[zeros(1,odx) x.data zeros(1,ody-(Lx-Ly))];  
+            x.data=[zeros(1,odx) x.data zeros(1,ody-(Lx-Ly))];
             y.data=[zeros(1,ody) y.data zeros(1,odx-(Ly-Lx))];
             
             off=min(x.offset,y.offset);
@@ -330,26 +330,26 @@ classdef sequence
             
             z=trim(z);
             
-		end
-		
-		function z = times(x, y)
-			% TIMES Multiply x and y (i.e. .*) Either x and y will both be sequence structures, or one of them may be a number.
-            if isa(x,'sequence')==0  
-                z=sequence(y.data*x,y.offset); 
+        end
+        
+        function z = times(x, y)
+            % TIMES Multiply x and y (i.e. .*) Either x and y will both be sequence structures, or one of them may be a number.
+            if isa(x,'sequence')==0
+                z=sequence(y.data*x,y.offset);
                 return;
             end
-            if isa(y,'sequence')==0            
+            if isa(y,'sequence')==0
                 z=sequence(x.data*y,x.offset);
                 return;
             end
-                
+            
             Lx=length(x.data);
             Ly=length(y.data);
             
-            ody=y.offset-x.offset;  
-            odx=x.offset-y.offset;  
+            ody=y.offset-x.offset;
+            odx=x.offset-y.offset;
             
-            x.data=[zeros(1,odx) x.data zeros(1,ody-(Lx-Ly))];  
+            x.data=[zeros(1,odx) x.data zeros(1,ody-(Lx-Ly))];
             y.data=[zeros(1,ody) y.data zeros(1,odx-(Ly-Lx))];
             
             off=min(x.offset,y.offset);
@@ -357,11 +357,11 @@ classdef sequence
             
             z=trim(z);
             
-		end
-		
-		function stem(x)
-			% STEM Display a Matlab sequence, x, using a stem plot.
-              stem( x.offset : length(x.data )+x.offset-1,x.data);
+        end
+        
+        function stem(x)
+            % STEM Display a Matlab sequence, x, using a stem plot.
+            stem( x.offset : length(x.data )+x.offset-1,x.data);
         end
         
         function y = conv(x,h)
@@ -370,8 +370,8 @@ classdef sequence
             
             if (length(x.data) &gt; length(h.data))    %if sequence h is shorter, convolve sequence h with matrix X (y=h*X)
                 X = zeros(length(h.data), ((length(h.data)+length(x.data))-1));  %define X's dimensions and stuff with zeros:
-                i=1;                                                            %       X row length = sequence h data length
-                j=1;                                                            %       Y column length = length(h.data)+length(x.data)-1
+                i=1; %X row length = sequence h data length
+                j=1; %Y column length = length(h.data)+length(x.data)-1
                 P = [x.data zeros(1,length(h.data)-1)]; %sequence x duplicated in P. length(x.data) + length of zeros stuffed after MUST EQUAL length of sequence y for flip&amp;shift method
                 for n = 1:(length(h.data))  %outer loop for row increment
                     for m = 1:((length(h.data)+length(x.data))-1)   %inner loop for column increment
@@ -383,7 +383,7 @@ classdef sequence
                     j=1;    %start from P's first data point (leftmost column)
                 end
                 y = sequence((h.data*X),(x.offset+h.offset)); %now that the matrix dimensions are correct, we can multiply them together
-           
+                
             else    %convolve x with matrix H (y=x*H)
                 H = zeros(length(x.data), ((length(h.data)+length(x.data))-1));
                 i=1;
@@ -407,12 +407,12 @@ classdef sequence
             % DECONV Convolve finite-length Matlab sequence object, y,
             %        given impulse response object, h
             %        returning sequence object, x.
-        
+            
             Lx = length(y.data)-length(h.data)+1;   %length of sequence x
-            h_hat = zeros(Lx,Lx);    %define Lx by Lx matrix 
+            h_hat = zeros(Lx,Lx);    %define Lx by Lx matrix
             F = [h.data zeros(1, Lx-length(h.data))];   %sequence h duplicated in F. Add zeros after h.data so the length of F == Lx
-        
-        
+            
+            
             %traverse vector F through Lx by Lx matrix h_hat. Shift right, cut
             %off data shifted out at the end of the vector
             for i=1:Lx
@@ -421,20 +421,19 @@ classdef sequence
             x = sequence(y.data(1:Lx)*inv(h_hat), y.offset-h.offset);   %only need to sample enough y.data to equal length(x.data). (length(y.data) MUST equal row &amp; column length for h_hat
         end
         
-	end
+    end
 end
 
- function y = conv_rt(x,h)
-            % Convolve two finite-length arrays, x and h
-                    %          returning array, y
-                    h_hat = h(end:-1:1);
-                    x_hat = [zeros(1,length(h)-1) x zeros(1,length(h)-1)];
-                    y = zeros(1,length(x)+length(h)-1);
+function y = conv_rt(x,h)
+% Convolve two finite-length arrays, x and h returning array, y
+h_hat = h(end:-1:1);
+x_hat = [zeros(1,length(h)-1) x zeros(1,length(h)-1)];
+y = zeros(1,length(x)+length(h)-1);
 
-                    for i=1:length(x)+length(h)-1
-                        y(i) = sum(h_hat.*x_hat(i:i+length(h)-1));
-                    end
- end
+for i=1:length(x)+length(h)-1
+    y(i) = sum(h_hat.*x_hat(i:i+length(h)-1));
+end
+end
 </pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018b</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 % lab2.m
