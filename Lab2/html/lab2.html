@@ -1,0 +1,513 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>lab2</title><meta name="generator" content="MATLAB 9.5"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2019-03-06"><meta name="DC.source" content="lab2.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">Convolution, Part I</a></li><li><a href="#3">Real-time Convolution</a></li><li><a href="#4">Deconvolution</a></li><li><a href="#5">Code</a></li></ul></div><pre class="codeinput"><span class="comment">% lab2.m</span>
+<span class="comment">% Please place lab2.m in your working directory</span>
+<span class="comment">% Provide the print-out from running this function</span>
+<span class="comment">% using 'publish lab2'</span>
+<span class="comment">%</span>
+<span class="comment">% T. Holton 10 Sept 08</span>
+
+test_lab2;
+</pre><h2 id="2">Convolution, Part I</h2><p>Convolution #1</p><pre class="codeinput">x = sequence([1 2 6 -3 5], 1);
+h = sequence([4 -1 5 3 2], -3);
+test_lab2(x, h);
+
+<span class="comment">% Convolution #2</span>
+test_lab2(h, x);
+
+<span class="comment">% Convolution #3</span>
+h = sequence(1, 0);
+test_lab2(x, h);
+
+<span class="comment">% Convolution #4</span>
+test_lab2(h, x);
+
+<span class="comment">% Convolution #5</span>
+x = sequence(cos(2 * pi * (1:50000) / 16), -5); <span class="comment">% nice, big sequence</span>
+h = sequence(ones(1, 10), 10);
+test_lab2(x, h);
+
+<span class="comment">% Convolution #6</span>
+test_lab2(h, x);
+
+<span class="comment">% Convolution #7</span>
+x = sequence(1, 2);
+h = sequence(1, -1);
+test_lab2(x, h);
+
+<span class="comment">% Convolution #8</span>
+test_lab2(h, x);
+</pre><pre class="codeoutput">Problem #1
+   Your data are correct
+   Your offset is correct
+     Your elapsed time is 30.437 usecs
+     which is 3.05 times Holton's elapsed time (9.995 usecs)
+     and 3.89 times Matlab's elapsed time (7.831 usecs)
+
+Problem #2
+   Your data are correct
+   Your offset is correct
+     Your elapsed time is 21.691 usecs
+     which is 3.1 times Holton's elapsed time (7.007 usecs)
+     and 8.39 times Matlab's elapsed time (2.584 usecs)
+
+Problem #3
+   Your data are correct
+   Your offset is correct
+     Your elapsed time is 45.585 usecs
+     which is 0.527 times Holton's elapsed time (86.475 usecs)
+     and 0.459 times Matlab's elapsed time (99.265 usecs)
+
+Problem #4
+   Your data are correct
+   Your offset is correct
+     Your elapsed time is 24.63 usecs
+     which is 0.875 times Holton's elapsed time (28.143 usecs)
+     and 3.66 times Matlab's elapsed time (6.722 usecs)
+
+Problem #5
+   Your data are correct
+   Your offset is correct
+     Your elapsed time is 1854.75 usecs
+     which is 1.4 times Holton's elapsed time (1327.47 usecs)
+     and 18.6 times Matlab's elapsed time (99.553 usecs)
+
+Problem #6
+   Your data are correct
+   Your offset is correct
+     Your elapsed time is 2039.65 usecs
+     which is 1.46 times Holton's elapsed time (1395.56 usecs)
+     and 22.8 times Matlab's elapsed time (89.622 usecs)
+
+Problem #7
+   Your data are correct
+   Your offset is correct
+     Your elapsed time is 21.07 usecs
+     which is 3.28 times Holton's elapsed time (6.425 usecs)
+     and 3.79 times Matlab's elapsed time (5.562 usecs)
+
+Problem #8
+   Your data are correct
+   Your offset is correct
+     Your elapsed time is 13.614 usecs
+     which is 3.84 times Holton's elapsed time (3.547 usecs)
+     and 7.16 times Matlab's elapsed time (1.901 usecs)
+
+</pre><h2 id="3">Real-time Convolution</h2><p>Real-time convolution #1</p><pre class="codeinput">x = [1 4 2 6 5];
+h = [4 -1 3 -5 2];
+test_lab2a;
+test_lab2a(x, h);
+
+<span class="comment">% Real-time convolution convolution #2</span>
+test_lab2a(h, x);
+
+<span class="comment">% Real-time convolution #3</span>
+x = cos(2 * pi * (1:50000) / 16); <span class="comment">% nice, big sequence</span>
+h = ones(1, 10);
+test_lab2a(x, h);
+</pre><pre class="codeoutput">Real-time convolution #1
+   Your data are correct
+
+Real-time convolution #2
+   Your data are correct
+
+Real-time convolution #3
+   Your data are correct
+
+</pre><h2 id="4">Deconvolution</h2><p>Deconvolution #1</p><pre class="codeinput">h = sequence([1 3 2], 2);
+y = sequence([1 6 15 20 15 7 2], -1);
+test_lab2b;
+test_lab2b(y, h);
+
+<span class="comment">% Deconvolution #1</span>
+y = sequence([-1 -2 0 0 0 0 1 2], 2);
+test_lab2b(y, h);
+</pre><pre class="codeoutput">Deconvolution problem #1
+   Your data are correct
+   Your offset is correct
+
+Deconvolution problem #2
+   Your data are correct
+   Your offset is correct
+
+</pre><h2 id="5">Code</h2><pre class="codeinput">disp(<span class="string">'---------------------------------------------------'</span>)
+disp(<span class="string">'                     Code'</span>)
+disp(<span class="string">'---------------------------------------------------'</span>)
+type <span class="string">sequence</span>
+type <span class="string">conv_rt</span>
+</pre><pre class="codeoutput">---------------------------------------------------
+                     Code
+---------------------------------------------------
+
+classdef sequence
+    properties
+        data
+        offset
+    end
+    
+    methods
+        function s = sequence(data, offset)
+            % SEQUENCE   Sequence object
+            %            S = SEQUENCE(DATA, OFFSET) creates sequence S
+            %            using DATA and OFFSET
+            %
+            %            Kevin Baltazar Reyes  13 Feb 2019
+            s.data = data;
+            s.offset = offset;
+        end
+        
+        function display(s)
+            var = inputname(1);
+            if (isempty(var))
+                disp('ans =');
+            else
+                disp([var '=']);
+            end
+            switch length(s.data)
+                case 0
+                    disp('    data: []')
+                case 1
+                    disp(['    data: ', num2str(s.data)])
+                otherwise
+                    disp(['    data: [' num2str(s.data) ']'])
+            end
+            disp(['  offset: ' num2str(s.offset)])
+        end
+        
+        function y = flip(x)
+            % FLIP Flip a Matlab sequence structure, x, so y = x[-n]
+            tempData = x.data(end:-1:1);    %start with the end of the sequence then count down 1 each time
+            
+            tempOffest = -(x.offset+length(x.data) - 1);
+            y = sequence(tempData,tempOffest);
+        end
+        
+        function y = shift(x, n0)
+            % SHIFT Shift a Matlab sequence structure, x, by integer amount n0 so that y[n] = x[n - n0]
+            
+            sameDataX=x.data;  %data sequence remains the same, we are only shifting the offset
+            newOffset=(x.offset+n0);   %new offset = previous offset + value you are shifting
+            y=sequence(sameDataX,newOffset);
+        end
+        
+        function x = trim(x)
+            %takes zeros off from each side of sequence
+            
+            while x.data(end)==0
+                x.data(end)=[];
+            end
+            
+            while x.data(1)==0
+                x.data(1)=[];
+                x.offset=x.offset+1;
+            end
+            
+        end
+        
+        
+        function z = plus(x, y)
+            % PLUS  Add x and y. Either x and y will both be sequence structures, or one of them may be a number.
+            
+            if isa(x,'sequence') == 0     %checks if x is a constant
+                z=sequence(y.data+x,y.offset);  %if x is a constant, add constant x to every data pt in y sequence, leave offest untouched
+                z=trim(z);
+                return;
+            end
+            
+            if isa(y,'sequence') == 0    %same as above but instead
+                z=sequence(x.data+y,x.offset);
+                z=trim(z);
+                return;
+            end
+            
+            lx=length(x.data);  %length of data in sequence x
+            ly=length(y.data);  %length of data in sequence y
+            
+            ody=y.offset-x.offset;  %difference between sequence offsets IF Y HAS GREATER OFFSET THAN X
+            odx=x.offset-y.offset;  %%difference between sequence offsets IF X HAS GREATER OFFSET THAN Y
+            
+            x.data=[zeros(1,odx) x.data zeros(1,ody-(lx-ly))];  %add zeros to the beginning &amp; end of sequence x as a "filler". You cannot perform operations between x &amp; y if there is no data at a given index. The zeros are put in to fill these empty spots.
+            y.data=[zeros(1,ody) y.data zeros(1,odx-(ly-lx))];
+            
+            off=min(x.offset,y.offset);     %minimum offset between x &amp; y
+            z=sequence(x.data+y.data,off);  %create sequence z as a result of adding sequence x &amp; y together
+            
+            z=trim(z);
+            
+        end
+        
+        function z = minus(x, y)
+            % MINUS Subtract x and y. Either x and y will both be sequence structures, or one of them may be a number.
+            
+            if isa(x,'sequence')==0
+                z=sequence(x-y.data,y.offset);
+                z=trim(z);
+                return;
+            end
+            if isa(y,'sequence')==0
+                z=sequence(x.data-y,x.offset);
+                z=trim(z);
+                return;
+            end
+            
+            Lx=length(x.data);
+            Ly=length(y.data);
+            
+            ody=y.offset-x.offset;
+            odx=x.offset-y.offset;
+            
+            x.data=[zeros(1,odx) x.data zeros(1,ody-(Lx-Ly))];
+            y.data=[zeros(1,ody) y.data zeros(1,odx-(Ly-Lx))];
+            
+            off=min(x.offset,y.offset);
+            z=sequence(x.data-y.data,off);
+            
+            z=trim(z);
+            
+        end
+        
+        function z = times(x, y)
+            % TIMES Multiply x and y (i.e. .*) Either x and y will both be sequence structures, or one of them may be a number.
+            if isa(x,'sequence')==0
+                z=sequence(y.data*x,y.offset);
+                return;
+            end
+            if isa(y,'sequence')==0
+                z=sequence(x.data*y,x.offset);
+                return;
+            end
+            
+            Lx=length(x.data);
+            Ly=length(y.data);
+            
+            ody=y.offset-x.offset;
+            odx=x.offset-y.offset;
+            
+            x.data=[zeros(1,odx) x.data zeros(1,ody-(Lx-Ly))];
+            y.data=[zeros(1,ody) y.data zeros(1,odx-(Ly-Lx))];
+            
+            off=min(x.offset,y.offset);
+            z=sequence(x.data.*y.data,off);
+            
+            z=trim(z);
+            
+        end
+        
+        function stem(x)
+            % STEM Display a Matlab sequence, x, using a stem plot.
+            stem( x.offset : length(x.data )+x.offset-1,x.data);
+        end
+        
+        function y = conv(x,h)
+            %CONV two finite-length Matlab sequence objects, x and h
+            %   returning sequence object y
+            
+            if (length(x.data) &gt; length(h.data))    %if sequence h is shorter, convolve sequence h with matrix X (y=h*X)
+                X = zeros(length(h.data), ((length(h.data)+length(x.data))-1));  %define X's dimensions and stuff with zeros:
+                i=1; %X row length = sequence h data length
+                j=1; %Y column length = length(h.data)+length(x.data)-1
+                P = [x.data zeros(1,length(h.data)-1)]; %sequence x duplicated in P. length(x.data) + length of zeros stuffed after MUST EQUAL length of sequence y for flip&amp;shift method
+                for n = 1:(length(h.data))  %outer loop for row increment
+                    for m = 1:((length(h.data)+length(x.data))-1)   %inner loop for column increment
+                        X(i,j)=P(j);    %value stored in P's current index goes to corresponding X index
+                        j=j+1;          %index points to next column (next value of data in P)
+                    end
+                    P = circshift(P,[0,1]); %circular shift-right on vector P. Value of 0 inputted one time to open data slot (leftmost slot)
+                    i=i+1;  %index points to next row (P[k-n])
+                    j=1;    %start from P's first data point (leftmost column)
+                end
+                y = sequence((h.data*X),(x.offset+h.offset)); %now that the matrix dimensions are correct, we can multiply them together
+                
+            else    %convolve x with matrix H (y=x*H)
+                H = zeros(length(x.data), ((length(h.data)+length(x.data))-1));
+                i=1;
+                j=1;
+                P = [h.data zeros(1,length(x.data)-1)];
+                
+                for n=1:(length(x.data))
+                    for m = 1:((length(x.data)+length(h.data))-1)
+                        H(i,j)=P(j);
+                        j=j+1;
+                    end
+                    P = circshift(P,[0,1]);
+                    i=i+1;
+                    j=1;
+                end
+                y=sequence((x.data*H),(x.offset+h.offset));
+            end
+        end
+        
+        function x = deconv(y,h)    % x = y*H^(-1)
+            % DECONV Convolve finite-length Matlab sequence object, y,
+            %        given impulse response object, h
+            %        returning sequence object, x.
+            
+            Lx = length(y.data)-length(h.data)+1;   %length of sequence x
+            h_hat = zeros(Lx,Lx);    %define Lx by Lx matrix
+            F = [h.data zeros(1, Lx-length(h.data))];   %sequence h duplicated in F. Add zeros after h.data so the length of F == Lx
+            
+            
+            %traverse vector F through Lx by Lx matrix h_hat. Shift right, cut
+            %off data shifted out at the end of the vector
+            for i=1:Lx
+                h_hat(i,:) = [zeros(1,i-1) F(1:Lx-i+1)];     %shift right by 1 each row by adding one zero per row in front, and cutting 1 data per row at end
+            end
+            x = sequence(y.data(1:Lx)*inv(h_hat), y.offset-h.offset);   %only need to sample enough y.data to equal length(x.data). (length(y.data) MUST equal row &amp; column length for h_hat
+        end
+        
+    end
+end
+
+function y = conv_rt(x,h)
+% Convolve two finite-length arrays, x and h returning array, y
+h_hat = h(end:-1:1);
+x_hat = [zeros(1,length(h)-1) x zeros(1,length(h)-1)];
+y = zeros(1,length(x)+length(h)-1);
+
+for i=1:length(x)+length(h)-1
+    y(i) = sum(h_hat.*x_hat(i:i+length(h)-1));
+end
+end
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+% lab2.m
+% Please place lab2.m in your working directory 
+% Provide the print-out from running this function
+% using 'publish lab2'
+%
+% T. Holton 10 Sept 08
+
+test_lab2;
+
+%% Convolution, Part I
+% Convolution #1
+x = sequence([1 2 6 -3 5], 1);
+h = sequence([4 -1 5 3 2], -3);
+test_lab2(x, h);
+
+% Convolution #2
+test_lab2(h, x);
+
+% Convolution #3
+h = sequence(1, 0);
+test_lab2(x, h);
+
+% Convolution #4
+test_lab2(h, x);
+
+% Convolution #5
+x = sequence(cos(2 * pi * (1:50000) / 16), -5); % nice, big sequence
+h = sequence(ones(1, 10), 10);
+test_lab2(x, h);
+
+% Convolution #6
+test_lab2(h, x);
+
+% Convolution #7
+x = sequence(1, 2);
+h = sequence(1, -1);
+test_lab2(x, h);
+
+% Convolution #8
+test_lab2(h, x);
+
+%% Real-time Convolution
+% Real-time convolution #1
+x = [1 4 2 6 5];
+h = [4 -1 3 -5 2];
+test_lab2a;
+test_lab2a(x, h);
+
+% Real-time convolution convolution #2
+test_lab2a(h, x);
+
+% Real-time convolution #3
+x = cos(2 * pi * (1:50000) / 16); % nice, big sequence
+h = ones(1, 10);
+test_lab2a(x, h);
+
+%% Deconvolution
+% Deconvolution #1
+h = sequence([1 3 2], 2);
+y = sequence([1 6 15 20 15 7 2], -1);
+test_lab2b;
+test_lab2b(y, h);
+
+% Deconvolution #1
+y = sequence([-1 -2 0 0 0 0 1 2], 2);
+test_lab2b(y, h);
+
+%% Code
+disp('REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-')
+disp('                     Code')
+disp('REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-')
+type sequence
+type conv_rt
+##### SOURCE END #####
+--></body></html>
