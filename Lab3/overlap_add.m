@@ -1,3 +1,5 @@
+% Kevin Baltazar Reyes
+% ENGR 451
 
 function y = overlap_add(x, h, lc)
 Nx=length(x);

@@ -1,3 +1,6 @@
+% Kevin Baltazar Reyes
+% ENGR 451
+
 function y=cirConv(x,h)
 lx=length(x);
 lh=length(h);

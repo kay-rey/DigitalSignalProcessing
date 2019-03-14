@@ -7,14 +7,14 @@ test_lab3; % initialize test_lab3 function
 x = ones(1, 15);
 h = ones(1, 3);
 for lc = 5:5:15
-	test_lab3(x, h, lc);
+    test_lab3(x, h, lc);
 end
 test_lab3(x, h, 50);
 
 % Problems #5-7
 for lx = 14:16
-	x = ones(1, lx);
-	test_lab3(x, h, 15);
+    x = ones(1, lx);
+    test_lab3(x, h, 15);
 end
 
 % Problem #8-9

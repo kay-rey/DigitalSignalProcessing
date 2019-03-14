@@ -213,6 +213,5 @@ classdef sequence
             end
             x = sequence(y.data(1:Lx)*inv(h_hat), y.offset-h.offset);   %only need to sample enough y.data to equal length(x.data). (length(y.data) MUST equal row & column length for h_hat
         end
-        
     end
 end
