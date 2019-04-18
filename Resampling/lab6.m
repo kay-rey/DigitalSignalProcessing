@@ -14,7 +14,7 @@ test_resamp(x, 0.666667);
 test_resamp(x, 0.5);
 
 % Make sure that you have the file 'seashell.wav' in your directory
-[x, fs] = wavread('seashell');
+[x, fs] = audioread('seashell.wav');
 
 %% Testing resampling of 'seashell' at (3/2)fs
 test_resamp(x, 1.5, 5000, 5050);
