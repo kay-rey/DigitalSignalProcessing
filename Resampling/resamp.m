@@ -6,16 +6,14 @@ function y = resamp(x, r)
 %   will upsample x by 3 and downsample by 2.
 
 [L,M] = rat(r);
-Lx = length(x);
-
-x_up = zeros(1,Lx*L);
-x_up(1:L:end) = x;  %upsample
-
+lengthX = length(x);
+upsampleX = zeros(1,lengthX*L);
+upsampleX(1:L:end) = x;  %this calulates the upsample
 wc = max(L,M);
 fn = 1/wc;
 n = round(1+20/fn);
 h = L*fir1(n-1, fn, kaiser(n,5));
-x_filt = conv(x_up, h, 'same');
-y = x_filt(1:M:end);    %downsample
+x_filt = conv(upsampleX, h, 'same');
+y = x_filt(1:M:end);    %this calculates the downsample
 
 end
