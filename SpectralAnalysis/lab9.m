@@ -1,5 +1,5 @@
 function lab9
-%
+%  Kevin Baltazar Reyes
 %  Make sure you download all the test files s1.wav -> s8.wav
 
 nFiles = 6;
